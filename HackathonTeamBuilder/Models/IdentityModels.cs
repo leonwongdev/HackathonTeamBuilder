@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -32,6 +33,9 @@ namespace HackathonTeamBuilder.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
+
+        // Add Entity
+        public DbSet<Hackathon> Hackathons { get; set; }
 
         public static ApplicationDbContext Create()
         {

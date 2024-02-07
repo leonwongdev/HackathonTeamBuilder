@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Net.NetworkInformation;
 
 namespace HackathonTeamBuilder.Models
 {
@@ -81,14 +80,15 @@ namespace HackathonTeamBuilder.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
-        [Required]
-        // Composite formatting: https://learn.microsoft.com/en-us/dotnet/standard/base-types/composite-formatting
-        [StringLength(255, ErrorMessage = "The {0} must be between {2} and {1} characters long.", MinimumLength = 10)]
-        public string Bio { get; set; }
 
         [Required]
         [StringLength(255, ErrorMessage = "The {0} must be between {2} and {1} characters long.", MinimumLength = 1)]
         public string FullName { get; set; }
+
+        [Required]
+        // Composite formatting: https://learn.microsoft.com/en-us/dotnet/standard/base-types/composite-formatting
+        [StringLength(255, ErrorMessage = "The {0} must be between {2} and {1} characters long.", MinimumLength = 10)]
+        public string Bio { get; set; }
 
         [Required]
         [StringLength(255, ErrorMessage = "The {0} must be between {2} and {1} characters long.", MinimumLength = 10)]

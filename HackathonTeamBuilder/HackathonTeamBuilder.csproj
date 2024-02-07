@@ -199,9 +199,14 @@
     <Compile Include="Migrations\202402061943365_add-new-fields-User-model.designer.cs">
       <DependentUpon>202402061943365_add-new-fields-User-model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202402070355026_AddHackathonModel.cs" />
+    <Compile Include="Migrations\202402070355026_AddHackathonModel.designer.cs">
+      <DependentUpon>202402070355026_AddHackathonModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\EditUserProfileViewModel.cs" />
+    <Compile Include="Models\Hackathon.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Utilities.cs" />
@@ -320,6 +325,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202402061943365_add-new-fields-User-model.resx">
       <DependentUpon>202402061943365_add-new-fields-User-model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202402070355026_AddHackathonModel.resx">
+      <DependentUpon>202402070355026_AddHackathonModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
