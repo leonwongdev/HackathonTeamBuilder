@@ -49,7 +49,13 @@ namespace HackathonTeamBuilder.Controllers
             }
         }
 
-        // Passion Project: Added ability to retrieve user and display the info on the view
+        /// <summary>
+        /// Passion Project:
+        /// This function handles the User read feature.
+        /// It gets the user data through UserManager and pass the data to the view.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
