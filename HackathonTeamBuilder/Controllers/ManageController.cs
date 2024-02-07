@@ -322,6 +322,49 @@ namespace HackathonTeamBuilder.Controllers
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
         }
 
+        // GET: /Manager/EditProfile
+        [HttpGet]
+        public ActionResult EditProfile(string Id)
+        {
+            var editUserProfileViewModel = new EditUserProfileViewModel();
+            var currentUser = UserManager.FindById(User.Identity.GetUserId());
+            if (Id != currentUser.Id)
+            {
+                throw new System.Exception("Id not matched");
+            }
+            editUserProfileViewModel.Id = currentUser.Id;
+            editUserProfileViewModel.FullName = currentUser.FullName;
+            editUserProfileViewModel.Bio = currentUser.Bio;
+            editUserProfileViewModel.LinkedinUrl = currentUser.LinkedinUrl;
+            editUserProfileViewModel.GithubUrl = currentUser.GithubUrl;
+            editUserProfileViewModel.PortfolioUrl = currentUser.PortfolioUrl;
+            editUserProfileViewModel.Role = currentUser.Role;
+
+            return View(editUserProfileViewModel);
+        }
+
+        // POST: /Manager/EditProfile
+        [HttpPost]
+        public ActionResult EditProfile(EditUserProfileViewModel NewUserModel)
+        {
+            var currentUser = UserManager.FindById(User.Identity.GetUserId());
+            if (currentUser == null)
+            {
+                throw new System.Exception("User not found.");
+            }
+            currentUser.Id = NewUserModel.Id;
+            currentUser.FullName = NewUserModel.FullName;
+            currentUser.Bio = NewUserModel.Bio;
+            currentUser.LinkedinUrl = NewUserModel.LinkedinUrl;
+            currentUser.GithubUrl = NewUserModel.GithubUrl;
+            currentUser.PortfolioUrl = NewUserModel.PortfolioUrl;
+            currentUser.Role = NewUserModel.Role;
+
+            IdentityResult result = UserManager.Update(currentUser);
+
+            return RedirectToAction("Index", "Manage");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && _userManager != null)

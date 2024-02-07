@@ -1,0 +1,52 @@
+﻿@model HackathonTeamBuilder.Models.EditUserProfileViewModel
+@{
+    ViewBag.Title = "EditProfile";
+    var roleDropdownItems = HackathonTeamBuilder.Models.Utilities.GetRoleSelectList();
+}
+
+<h2>Edit Profile</h2>
+
+@using (Html.BeginForm("EditProfile", "Manage", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FullName)
+        @Html.TextBoxFor(model => model.FullName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Bio)
+        @Html.TextAreaFor(model => model.Bio, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Bio, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.LinkedinUrl)
+        @Html.TextBoxFor(model => model.LinkedinUrl, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.LinkedinUrl, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.GithubUrl)
+        @Html.TextBoxFor(model => model.GithubUrl, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.GithubUrl, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PortfolioUrl)
+        @Html.TextBoxFor(model => model.PortfolioUrl, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.PortfolioUrl, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Role)
+        @Html.DropDownListFor(model => model.Role, roleDropdownItems, new { @class = "form-select" })
+        @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+}
