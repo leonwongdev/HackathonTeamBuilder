@@ -49,7 +49,7 @@ namespace HackathonTeamBuilder.Controllers
             }
         }
 
-        //
+        // Passion Project: Added ability to retrieve user and display the info on the view
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
@@ -70,6 +70,7 @@ namespace HackathonTeamBuilder.Controllers
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                // Passion Project: Added ability to retrieve user and display the info on the view
                 User = await UserManager.FindByIdAsync(User.Identity.GetUserId())
             };
             return View(model);
@@ -322,6 +323,13 @@ namespace HackathonTeamBuilder.Controllers
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
         }
 
+        /// <summary>
+        /// Passion Project:
+        /// This function is part of Update feature of the User table.
+        /// It retrieves user data from db and display a edit form on the view.
+        /// </summary>
+        /// <param name="Id">User id</param>
+        /// <returns>View that display an edit form</returns>
         // GET: /Manager/EditProfile
         [HttpGet]
         public ActionResult EditProfile(string Id)
@@ -330,7 +338,14 @@ namespace HackathonTeamBuilder.Controllers
             var currentUser = UserManager.FindById(User.Identity.GetUserId());
             if (Id != currentUser.Id)
             {
-                throw new System.Exception("Id not matched");
+                ViewBag.ErrorMessage = "Input user id does not match current User id.";
+                return View("Error");
+            }
+
+            if (currentUser == null)
+            {
+                ViewBag.ErrorMessage = "User not found.";
+                return View("Error");
             }
             editUserProfileViewModel.Id = currentUser.Id;
             editUserProfileViewModel.FullName = currentUser.FullName;
@@ -343,26 +358,37 @@ namespace HackathonTeamBuilder.Controllers
             return View(editUserProfileViewModel);
         }
 
+        /// <summary>
+        /// Passion Project:
+        /// This function takes form data of updated user data and updates the record in the database.
+        /// </summary>
+        /// <param name="NewUserModel">form data of updated user model</param>
+        /// <returns>Redirect to User manage page</returns>
         // POST: /Manager/EditProfile
         [HttpPost]
         public ActionResult EditProfile(EditUserProfileViewModel NewUserModel)
         {
-            var currentUser = UserManager.FindById(User.Identity.GetUserId());
-            if (currentUser == null)
+            if (ModelState.IsValid)
             {
-                throw new System.Exception("User not found.");
+                var currentUser = UserManager.FindById(User.Identity.GetUserId());
+                if (currentUser == null)
+                {
+                    ViewBag.ErrorMessage = "User not found.";
+                    return View("Error");
+                }
+                currentUser.Id = NewUserModel.Id;
+                currentUser.FullName = NewUserModel.FullName;
+                currentUser.Bio = NewUserModel.Bio;
+                currentUser.LinkedinUrl = NewUserModel.LinkedinUrl;
+                currentUser.GithubUrl = NewUserModel.GithubUrl;
+                currentUser.PortfolioUrl = NewUserModel.PortfolioUrl;
+                currentUser.Role = NewUserModel.Role;
+
+                IdentityResult result = UserManager.Update(currentUser);
+
+                return RedirectToAction("Index", "Manage");
             }
-            currentUser.Id = NewUserModel.Id;
-            currentUser.FullName = NewUserModel.FullName;
-            currentUser.Bio = NewUserModel.Bio;
-            currentUser.LinkedinUrl = NewUserModel.LinkedinUrl;
-            currentUser.GithubUrl = NewUserModel.GithubUrl;
-            currentUser.PortfolioUrl = NewUserModel.PortfolioUrl;
-            currentUser.Role = NewUserModel.Role;
-
-            IdentityResult result = UserManager.Update(currentUser);
-
-            return RedirectToAction("Index", "Manage");
+            return View("Error");
         }
 
         protected override void Dispose(bool disposing)

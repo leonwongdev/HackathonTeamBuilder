@@ -3,7 +3,7 @@ using System.Web.Mvc;
 
 namespace HackathonTeamBuilder.Models
 {
-    public class Utilities
+    public class Helper
     {
         public static List<SelectListItem> GetRoleSelectList()
         {

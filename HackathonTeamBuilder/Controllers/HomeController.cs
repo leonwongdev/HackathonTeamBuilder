@@ -1,13 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using HackathonTeamBuilder.Models;
+using System;
+using System.Net.Http;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace HackathonTeamBuilder.Controllers
 {
     public class HomeController : Controller
     {
+        private static readonly HttpClient client;
+        private JavaScriptSerializer jss = new JavaScriptSerializer();
+
+        static HomeController()
+        {
+            client = new HttpClient();
+            client.BaseAddress = new Uri(Constant.BASE_URL);
+        }
+
         public ActionResult Index()
         {
             return View();

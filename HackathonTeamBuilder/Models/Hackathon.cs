@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace HackathonTeamBuilder.Models
 {
@@ -22,6 +23,10 @@ namespace HackathonTeamBuilder.Models
         [Required(ErrorMessage = "URL is required.")]
         [StringLength(255, ErrorMessage = "URL must be at most 255 characters.")]
         public string Url { get; set; }
+
+        [Required(ErrorMessage = "Deadline is required.")]
+        [DataType(DataType.DateTime, ErrorMessage = "Invalid deadline format.")]
+        public DateTime Deadline { get; set; }
 
     }
 }
