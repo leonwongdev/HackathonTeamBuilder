@@ -31,13 +31,13 @@
             </dd>
             @*
                 Phone Numbers can used as a second factor of verification in a two-factor authentication system.
-                
+
                 See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
                     for details on setting up this ASP.NET application to support two-factor authentication using SMS.
-                
+
                 Uncomment the following block after you have set up two-factor authentication
             *@
-            @*  
+            @*
                 <dt>Phone Number:</dt>
                 <dd>
                     @(Model.PhoneNumber ?? "None")
@@ -85,5 +85,38 @@
                     }*@
             </dd>
         </dl>
+    </div>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        User Information
+                    </div>
+                    <div class="card-body">
+                        <dl class="row">
+
+                            <dt class="col-sm-4">Full Name:</dt>
+                            <dd class="col-sm-8">@Model.User.FullName</dd>
+
+                            <dt class="col-sm-4">Bio:</dt>
+                            <dd class="col-sm-8">@Model.User.Bio</dd>
+
+                            <dt class="col-sm-4">LinkedIn URL:</dt>
+                            <dd class="col-sm-8">@Model.User.LinkedinUrl</dd>
+
+                            <dt class="col-sm-4">GitHub URL:</dt>
+                            <dd class="col-sm-8">@Model.User.GithubUrl</dd>
+
+                            <dt class="col-sm-4">Portfolio URL:</dt>
+                            <dd class="col-sm-8">@Model.User.PortfolioUrl</dd>
+
+                            <dt class="col-sm-4">Role:</dt>
+                            <dd class="col-sm-8">@Model.User.Role</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </main>

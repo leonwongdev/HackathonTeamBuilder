@@ -16,20 +16,68 @@
             @Html.LabelFor(m => m.Email, new { @class = "col-md-2 col-form-label" })
             <div class="col-md-10">
                 @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="row">
             @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label" })
             <div class="col-md-10">
                 @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="row">
             @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 col-form-label" })
             <div class="col-md-10">
                 @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        <div class="row">
+            @Html.LabelFor(m => m.FullName, "Full Name", new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.FullName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.FullName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.Bio, "Bio", new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(m => m.Bio, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Bio, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.LinkedinUrl, "LinkedIn URL", new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.LinkedinUrl, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.LinkedinUrl, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.GithubUrl, "GitHub URL", new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.GithubUrl, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.GithubUrl, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.PortfolioUrl, "Portfolio URL", new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.PortfolioUrl, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.PortfolioUrl, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.Role, "Role", new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.Role, GetRoleSelectList(), "Select Role", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Role, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
         <div class="row">
             <div class="offset-md-2 col-md-10">
                 <input type="submit" value="Register" class="btn btn-outline-dark" />
@@ -40,4 +88,17 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+}
+
+@functions {
+    public List<SelectListItem> GetRoleSelectList()
+    {
+        return new List<SelectListItem>
+    {
+            new SelectListItem { Value = "Front-end Developer", Text = "Front-end Developer" },
+            new SelectListItem { Value = "Back-end Developer", Text = "Back-end Developer" },
+            new SelectListItem { Value = "UI/UX Designer", Text = "UI/UX Designer" },
+            new SelectListItem { Value = "Project Manager", Text = "Project Manager" }
+        };
+    }
 }

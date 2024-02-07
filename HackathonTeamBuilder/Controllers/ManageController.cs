@@ -1,12 +1,11 @@
-﻿using System;
+﻿using HackathonTeamBuilder.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using HackathonTeamBuilder.Models;
 
 namespace HackathonTeamBuilder.Controllers
 {
@@ -32,9 +31,9 @@ namespace HackathonTeamBuilder.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -70,7 +69,8 @@ namespace HackathonTeamBuilder.Controllers
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                User = await UserManager.FindByIdAsync(User.Identity.GetUserId())
             };
             return View(model);
         }
@@ -333,7 +333,7 @@ namespace HackathonTeamBuilder.Controllers
             base.Dispose(disposing);
         }
 
-#region Helpers
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -384,6 +384,6 @@ namespace HackathonTeamBuilder.Controllers
             Error
         }
 
-#endregion
+        #endregion
     }
 }
