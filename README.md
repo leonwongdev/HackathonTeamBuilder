@@ -17,4 +17,10 @@
 - The data is then added to the IndexViewModel and passed to the /Manage/Index.cshtml view
 - Html code is added to /Manage/Index.cshtml to display the user information
 - MVC Endpoint: `GET /Manage`
-- WebAPI Endpoint: N/A (Because read feature is rely on the `ApplicationUserManager` class from the .Net Identity)
+- WebAPI Endpoint: N/A (`ApplicationUserManager` class is used to communicate with database)
+
+### CRUD - Update
+- Update feature is implemented inside `ManageController.EditProfile(string Id)` and `ManageController.EditProfile(EditUserProfileViewModel NewUserModel)`
+- MVC Endpoint: `GET /Manage/EditProfile` for displaying the edit form
+- MVC Endpoint `POST /Manage/EditProfile` for updating record in the database
+- WebAPI Endpoint: N/A (`ApplicationUserManager` class is used to communicate with database)
