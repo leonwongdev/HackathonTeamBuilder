@@ -21,7 +21,7 @@
 - /Models
 	- AccountViewModels.cs
 		- RegisterViewModel: Added new fields
-	- ApplicationUserTeam.cs: Juncation class for Many to Many relationship of Team and User
+	- ApplicationUserTeam.cs: Junction class for Many to Many relationship of Team and User
 	- Constant.cs: For holding constant value such as HTTPClient base address
 	- EditUserProfileViewModel.cs : For rendering Edit form and update user record in DB
 	- Hackathon.cs: Represent Hackathons table in DB
@@ -44,7 +44,7 @@
 
 # MVP Features
 
-## User
+## User Table
 ### CRUD - Create
 
 - MVC Endpoint: `GET /Account/Register` for displaying registration form
@@ -70,7 +70,11 @@
 - Update feature is implemented inside `ManageController.EditProfile(string Id)` and `ManageController.EditProfile(EditUserProfileViewModel NewUserModel)`
  with database)
 
-## Hackathon
+### Delete
+- MVC Endpoint: `POST /Manage/DeleteUser?UserId={UserId}`
+- User will see a delete button in `/Manage/Index`, they can delete their own account, and once deleted successfully, they will be logged out.
+
+## Hackathon Table
 
 ### Create
 - MVC Endpoint: `GET /hackathon/create` for displaying a create form
