@@ -1,5 +1,6 @@
 ﻿using HackathonTeamBuilder.Models;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -19,7 +20,10 @@ namespace HackathonTeamBuilder.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            string endpoint = "hackathondata/listall";
+            HttpResponseMessage response = client.GetAsync(endpoint).Result;
+            List<Hackathon> hackathons = response.Content.ReadAsAsync<List<Hackathon>>().Result;
+            return View(hackathons);
         }
 
         public ActionResult About()

@@ -1,33 +1,26 @@
-﻿@{
+﻿@model List<HackathonTeamBuilder.Models.Hackathon>
+@{
     ViewBag.Title = "Home Page";
 }
 
-<main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
-    </section>
-
+<main class="container mt-4">
+    <a href="/Home/" class="btn btn-primary mb-3">Add Hackathon</a>
     <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </section>
+        @foreach (var hackathon in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://placehold.it/300x200" class="card-img-top" alt="Hackathon Image">
+                    <div class="card-body">
+                        <h5 class="card-title">@hackathon.Name</h5>
+                        <p class="card-text"><strong>Location:</strong> @hackathon.Location</p>
+                        <p class="card-text"><strong>Description:</strong> @hackathon.Description</p>
+                        <p class="card-text"><strong>Offical Website:</strong> <a href="@hackathon.Url" target="_blank">@hackathon.Url</a></p>
+                        <p class="card-text"><strong>Deadline:</strong> @hackathon.Deadline.ToString("yyyy-MM-dd HH:mm:ss")</p>
+                        <a href="#" class="btn btn-primary">View Teams</a>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 </main>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace HackathonTeamBuilder.Models
@@ -28,5 +29,7 @@ namespace HackathonTeamBuilder.Models
         [DataType(DataType.DateTime, ErrorMessage = "Invalid deadline format.")]
         public DateTime Deadline { get; set; }
 
+        // Navigation property for the one-to-many relationship
+        public virtual ICollection<Team> Teams { get; set; }
     }
 }

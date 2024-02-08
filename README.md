@@ -16,6 +16,7 @@
 - /Models
 	- AccountViewModels.cs
 		- RegisterViewModel: Added new fields
+	- ApplicationUserTeam.cs: Juncation class for Many to Many relationship of Team and User
 	- Constant.cs: For holding constant value such as HTTPClient base address
 	- EditUserProfileViewModel.cs : For rendering Edit form and update user record in DB
 	- Hackathon.cs: Represent Hackathons table in DB
@@ -25,6 +26,7 @@
 		- ApplicationDbContext class: Regiser new models
 	- ManageViewModel.cs
 		- IndexViewModel: Added Application user field so that user profile can be rendered on `GET /Manage`
+	- Team.cs: Represent Teams table in the database.
 - /Views
 	- /Account
 		- Register.cshtml: For user creation, added new input fields for user full name, bio, urls, and role.

@@ -208,6 +208,10 @@
     <Compile Include="Migrations\202402070542585_AddDeadlineToHackathonModel.designer.cs">
       <DependentUpon>202402070542585_AddDeadlineToHackathonModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202402080126423_AddTeam.cs" />
+    <Compile Include="Migrations\202402080126423_AddTeam.designer.cs">
+      <DependentUpon>202402080126423_AddTeam.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Constant.cs" />
@@ -216,6 +220,8 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Helper.cs" />
+    <Compile Include="Models\Team.cs" />
+    <Compile Include="Models\ApplicationUserTeam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -337,6 +343,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202402070542585_AddDeadlineToHackathonModel.resx">
       <DependentUpon>202402070542585_AddDeadlineToHackathonModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202402080126423_AddTeam.resx">
+      <DependentUpon>202402080126423_AddTeam.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

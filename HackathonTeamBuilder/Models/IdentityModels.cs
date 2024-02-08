@@ -36,10 +36,23 @@ namespace HackathonTeamBuilder.Models
 
         // Add Entity
         public DbSet<Hackathon> Hackathons { get; set; }
+        public DbSet<Team> Teams { get; set; }
+        public DbSet<ApplicationUserTeam> TeamApplicationUsers { get; set; }
 
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ApplicationUserTeam>()
+                .HasRequired(e => e.Team)
+                .WithMany()
+                .HasForeignKey(e => e.TeamId)
+                .WillCascadeOnDelete(false); // Specify no cascade delete for Team relationship
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
