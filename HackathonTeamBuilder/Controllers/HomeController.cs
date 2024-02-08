@@ -18,6 +18,10 @@ namespace HackathonTeamBuilder.Controllers
             client.BaseAddress = new Uri(Constant.BASE_URL);
         }
 
+        /// <summary>
+        /// For display a list of Hackathon on the home page
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             string endpoint = "hackathondata/listall";

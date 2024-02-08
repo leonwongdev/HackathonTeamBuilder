@@ -11,8 +11,8 @@
 		- EditProfile(EditUserProfileViewModel NewUserModel): Added this function to update user data in DB.
 	- /HomeController.cs : 
 		- Index(): For displaying list of hackathons
-	- /HackathonDataController.cs
-		- ListAll(): For getting list of hackathons from DB.
+	- /HackathonController.cs: For CRUD of hackathon table, refer to MVP feature section below.
+	- /HackathonDataController.cs: For WebAPI layer of CRUD on the hackathon table.
 - /Models
 	- AccountViewModels.cs
 		- RegisterViewModel: Added new fields
@@ -33,6 +33,7 @@
 	- /Manage
 		- Index.cshtml: Added card layout to display user profile
 		- EditProfile.cshtml: Added form to update user profile
+	- /Hackthon: Contains views for CRUD operation on hackathon table.
 	- /Shared
 		- Error.cshtml: Added p tag to display error message.
 
@@ -63,3 +64,25 @@
 - WebAPI Endpoint: N/A (`ApplicationUserManager` class is used to communicate
 - Update feature is implemented inside `ManageController.EditProfile(string Id)` and `ManageController.EditProfile(EditUserProfileViewModel NewUserModel)`
  with database)
+
+## Hackathon
+
+### Create
+- MVC Endpoint: `GET /hackathon/create` for displaying a create form
+- WebAPI Endpoint: `GET /api/hackathon/create` for creating a record in db.
+
+
+### Read
+- MVC Endpoint: `GET /home` for displaying a list of hackathon on home page
+- WebAPI Endpoint: `GET /api/hackathon/listall` for getting a list of hackathon object
+- WebAPI Endpoint `GET /api/hackthon/findbyid/{id}` for getting hackathon by id
+
+### Update
+- MVC Endpoint: `GET /hackathon/update` for displaying a update form with value from selected hackathon record.
+- MVC Endpoint: `POST /hackathon/update` for sending request to web api to update record and then redirect to home page.
+- WebAPI Endpoint: `GET /api/hackathon/update` for updating a record in DB.
+
+### Delete
+- MVC Endpoint: `GET /hackathon/deleteConfirm` for displaying confirmation page before proceed to deletion.
+- MVC Endpoint: `POST /hackathon/delete` for sending request to web api for deletion and then redirect user to the home page.
+- WebAPI Endpoint: `POST /api/hackathon/delete` for deleting a record in DB.

@@ -1,0 +1,10 @@
+﻿@model HackathonTeamBuilder.Models.Hackathon
+@{
+    ViewBag.Title = "DeleteConfirm";
+}
+
+<h2>Delete Confirmation</h2>
+<p class="text-danger">Are you sure you want to delete this hackathon?</p>
+<p class="text-danger">Id: @Model.Id</p>
+<p class="text-danger">Name: @Model.Name</p>
+<a href="/hackathon/delete?id=@Model.Id" class="btn btn-danger">Confirm Delete</a>
