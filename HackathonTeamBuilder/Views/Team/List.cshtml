@@ -1,0 +1,29 @@
+﻿@model List<HackathonTeamBuilder.Models.Team>
+@{
+    ViewBag.Title = "List";
+    HackathonTeamBuilder.Models.Hackathon hackathon = null;
+    if (Model[0] != null)
+    {
+        hackathon = Model[0].Hackathon;
+    }
+}
+
+<h2>Hackathon: @hackathon.Name (ID: @hackathon.Id)</h2>
+
+<h3>Team List:</h3>
+<div class="row">
+    @foreach (var team in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Team ID: @team.Id</h5>
+                    <p class="card-text"><strong>Team Leader:</strong> @team.TeamLeaderId</p>
+                    <p class="card-text"><strong>Requirements:</strong> @team.Requirements</p>
+                    <p class="card-text"><strong>Max Number of Members:</strong> @team.MaxNumOfMembers</p>
+                    <a href="#" class="btn btn-primary">View Members</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -186,6 +186,8 @@
     <Compile Include="Controllers\HackathonDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TeamController.cs" />
+    <Compile Include="Controllers\TeamDataController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -302,6 +304,7 @@
     <Content Include="Views\Hackathon\Create.cshtml" />
     <Content Include="Views\Hackathon\Edit.cshtml" />
     <Content Include="Views\Hackathon\DeleteConfirm.cshtml" />
+    <Content Include="Views\Team\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
