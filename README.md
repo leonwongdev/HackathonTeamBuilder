@@ -1,5 +1,10 @@
 # Passion Project: Hackathon Team Builder
 
+# Getting Started
+1. Navigate to `/Models/Constant` and change the `BASE_URL` to match your localhost and port number.
+2. Open Packag Manager Console, run `Update-Database` to execute the migrations.
+3. Start the application
+
 ## Overveiw of the Files Added / Changed
 
 - /Controllers
