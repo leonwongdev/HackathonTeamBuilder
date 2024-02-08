@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -395,6 +396,33 @@ namespace HackathonTeamBuilder.Controllers
                 return RedirectToAction("Index", "Manage");
             }
             return View("Error");
+        }
+
+        [HttpPost]
+        public ActionResult DeleteUser(string UserId)
+        {
+            //Find the user to Delete by using FindById Method
+            ApplicationUser UserToDelete = UserManager.FindById(UserId);
+            //If the User Exists Then Delete the User
+            if (UserToDelete != null)
+            {
+                //Delete the User by using Delete method of ApplicationUserManager Insance
+                IdentityResult result = UserManager.Delete(UserToDelete);
+                if (result.Succeeded)
+                {
+                    // If successfully delete User record in DB
+                    // Log user out as well
+                    var authenticationManager = HttpContext.GetOwinContext().Authentication;
+                    authenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    Debug.WriteLine("DeleteUser(): Fail to delete user.");
+                    return View("Error");
+                }
+            }
+            return HttpNotFound();
         }
 
         protected override void Dispose(bool disposing)

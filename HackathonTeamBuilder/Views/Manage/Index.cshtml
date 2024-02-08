@@ -115,6 +115,9 @@
                             <dd class="col-sm-8">@Model.User.Role </dd>
                         </dl>
                         <a href="/Manage/EditProfile?Id=@Model.User.Id" class="btn btn-primary">Edit</a>
+                        <form action="/Manage/DeleteUser?UserId=@Model.User.Id" method="post" class="mt-2">
+                            <button type="submit" class="btn btn-danger">Delete Account</button>
+                        </form>
                     </div>
                 </div>
             </div>
