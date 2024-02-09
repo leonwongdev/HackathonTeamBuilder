@@ -215,6 +215,14 @@
     <Compile Include="Migrations\202402080126423_AddTeam.designer.cs">
       <DependentUpon>202402080126423_AddTeam.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202402082109505_ChangedTeamModel.cs" />
+    <Compile Include="Migrations\202402082109505_ChangedTeamModel.designer.cs">
+      <DependentUpon>202402082109505_ChangedTeamModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202402090126360_remove-team-id-key-team-model.cs" />
+    <Compile Include="Migrations\202402090126360_remove-team-id-key-team-model.designer.cs">
+      <DependentUpon>202402090126360_remove-team-id-key-team-model.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Constant.cs" />
@@ -225,6 +233,7 @@
     <Compile Include="Models\Helper.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Models\ApplicationUserTeam.cs" />
+    <Compile Include="Models\TeamViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -305,6 +314,8 @@
     <Content Include="Views\Hackathon\Edit.cshtml" />
     <Content Include="Views\Hackathon\DeleteConfirm.cshtml" />
     <Content Include="Views\Team\List.cshtml" />
+    <Content Include="Views\Team\Create.cshtml" />
+    <Content Include="Views\Team\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -354,6 +365,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202402080126423_AddTeam.resx">
       <DependentUpon>202402080126423_AddTeam.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202402082109505_ChangedTeamModel.resx">
+      <DependentUpon>202402082109505_ChangedTeamModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202402090126360_remove-team-id-key-team-model.resx">
+      <DependentUpon>202402090126360_remove-team-id-key-team-model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

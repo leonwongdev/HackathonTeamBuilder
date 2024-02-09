@@ -1,0 +1,29 @@
+﻿@model HackathonTeamBuilder.Models.Team
+@{
+    ViewBag.Title = "Update";
+}
+
+<h2>Update Team</h2>
+
+@using (Html.BeginForm("Update", "Team", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.HackathonId);
+
+    @Html.HiddenFor(model => model.TeamLeaderId);
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Requirements, "Requirements")
+        @Html.TextAreaFor(model => model.Requirements, new { @class = "form-control", @Value = Model.Requirements })
+        @Html.ValidationMessageFor(model => model.Requirements, "", new { @class = "text-danger" })
+    </div>
+
+   @Html.HiddenFor(model => model.MaxNumOfMembers)
+
+    <button type="submit" class="btn btn-primary">Update</button>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

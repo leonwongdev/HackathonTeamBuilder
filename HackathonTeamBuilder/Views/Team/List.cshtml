@@ -1,11 +1,12 @@
-﻿@model List<HackathonTeamBuilder.Models.Team>
+﻿@model List<HackathonTeamBuilder.Models.TeamViewModel>
 @{
     ViewBag.Title = "List";
     HackathonTeamBuilder.Models.Hackathon hackathon = null;
     if (Model.Count > 0 && Model[0] != null)
     {
-        hackathon = Model[0].Hackathon;
+        hackathon = Model[0].Team.Hackathon;
     }
+
 }
 
 @if (Model.Count > 0)
@@ -13,17 +14,21 @@
     <h2>Hackathon: @hackathon.Name (ID: @hackathon.Id)</h2>
 
     <h3>Team List:</h3>
+    <a href="/Team/Create?hackathonId=@hackathon.Id" class="btn btn-primary mb-2">Create A Team</a>
     <div class="row">
-        @foreach (var team in Model)
+        @foreach (var teamViewModel in Model)
         {
             <div class="col-md-4 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Team ID: @team.Id</h5>
-                        <p class="card-text"><strong>Team Leader:</strong> @team.TeamLeaderId</p>
-                        <p class="card-text"><strong>Requirements:</strong> @team.Requirements</p>
-                        <p class="card-text"><strong>Max Number of Members:</strong> @team.MaxNumOfMembers</p>
+                        <h5 class="card-title">Team ID: @teamViewModel.Team.Id</h5>
+                        <p class="card-text"><strong>Team Leader:</strong> @if (@teamViewModel.TeamLeader != null)
+                        {@teamViewModel.TeamLeader.FullName}</p>
+                        <p class="card-text"><strong>Requirements:</strong> @teamViewModel.Team.Requirements</p>
+                        <p class="card-text"><strong>Max Number of Members:</strong> @teamViewModel.Team.MaxNumOfMembers</p>
                         <a href="#" class="btn btn-primary">View Members</a>
+                        <a href="/Team/Update/@teamViewModel.Team.Id" class="btn btn-success">Update Team</a>
+                        <a href="/Team/DeleteConfirm/@teamViewModel.Team.Id" class="btn btn-success">Delete Team</a>
                     </div>
                 </div>
             </div>

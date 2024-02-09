@@ -19,7 +19,7 @@ namespace HackathonTeamBuilder.Controllers
         /// For getting all hackathon records from the DB.
         /// </summary>
         /// <returns>200 OK with a list of hackathon data</returns>
-        // GET /HackathonData/ListAll
+        // GET api/HackathonData/ListAll
         [HttpGet]
         public IHttpActionResult ListAll()
         {
@@ -38,6 +38,7 @@ namespace HackathonTeamBuilder.Controllers
 
         }
 
+        // GET /api/hackathondata/findbyid/{id}
         [HttpGet]
         public IHttpActionResult FindById(int id)
         {
@@ -60,7 +61,7 @@ namespace HackathonTeamBuilder.Controllers
 
         }
 
-        // POST: /hackathondata/create
+        // POST: /api/hackathondata/create
         [HttpPost]
         public IHttpActionResult Create(Hackathon hackathon)
         {
@@ -74,7 +75,7 @@ namespace HackathonTeamBuilder.Controllers
             return CreatedAtRoute("DefaultApi", new { id = hackathon.Id }, hackathon);
         }
 
-        // POST: /hackathondata/edit/{id}
+        // POST: /api/hackathondata/edit/{id}
         [HttpPost]
         public IHttpActionResult Edit(int id, Hackathon updatedHackathon)
         {
@@ -109,7 +110,7 @@ namespace HackathonTeamBuilder.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // DELETE: /hackathondata/delete/{id}
+        // DELETE: /api/hackathondata/delete/{id}
         [HttpDelete]
         public IHttpActionResult Delete(int id)
         {

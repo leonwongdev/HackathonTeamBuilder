@@ -1,6 +1,7 @@
 ﻿using HackathonTeamBuilder.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web.Http;
 
@@ -10,7 +11,7 @@ namespace HackathonTeamBuilder.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: /teamdata/list
+        // GET: api/teamdata/list
         [HttpGet]
         public IHttpActionResult List()
         {
@@ -25,7 +26,7 @@ namespace HackathonTeamBuilder.Controllers
             }
         }
 
-        // GET: /teamdata/find/{id}
+        // GET: api/teamdata/find/{id}
         [HttpGet]
         public IHttpActionResult Find(int id)
         {
@@ -52,15 +53,22 @@ namespace HackathonTeamBuilder.Controllers
         /// </summary>
         /// <param name="id">hackathon id</param>
         /// <returns></returns>
-        // GET: /teamdata/ListTeamsByHackathon/{id}
+        // GET: api/teamdata/ListTeamsByHackathon/{id}
         [HttpGet]
         public IHttpActionResult ListTeamsByHackathon(int id)
         {
             try
             {
-                List<Team> teams = db.Teams.Where(t => t.HackathonId == id).ToList();
+                List<TeamViewModel> teamsWithUsers = db.Teams
+                .Where(t => t.HackathonId == id)
+                .Select(t => new TeamViewModel
+                {
+                    Team = t,
+                    TeamLeader = db.Users.FirstOrDefault(u => u.Id == t.TeamLeaderId)
+                })
+                .ToList();
 
-                return Ok(teams);
+                return Ok(teamsWithUsers);
             }
             catch (Exception ex)
             {
@@ -68,8 +76,42 @@ namespace HackathonTeamBuilder.Controllers
             }
         }
 
+        [HttpPost]
+        public IHttpActionResult CreateTeamWithLeader([FromBody] Team team)
+        {
+            // Using transaction here to make sure both team and the relationship can be created successfully togather.
+            using (var transaction = db.Database.BeginTransaction())
+            {
+                try
+                {
 
-        // POST: /teamdata/create
+                    // Step 1: Create the Team
+                    db.Teams.Add(team);
+                    db.SaveChanges(); // This will generate the TeamId
+
+                    // Step 2: Create the ApplicationUserTeam record
+                    ApplicationUserTeam userTeam = new ApplicationUserTeam
+                    {
+                        UserId = team.TeamLeaderId,
+                        TeamId = team.Id,
+                        HackathonId = team.HackathonId
+                    };
+
+                    db.TeamApplicationUsers.Add(userTeam);
+                    db.SaveChanges();
+
+                    transaction.Commit();
+                    return Ok();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    Debug.WriteLine(ex);
+                    return InternalServerError();
+                }
+            }
+        }
+        // POST: api/teamdata/create
         [HttpPost]
         public IHttpActionResult Create(Team team)
         {
@@ -91,9 +133,9 @@ namespace HackathonTeamBuilder.Controllers
             }
         }
 
-        // PUT: /teamdata/update/{id}
-        [HttpPut]
-        public IHttpActionResult Update(int id, Team updatedTeam)
+        // POST: api/teamdata/update
+        [HttpPost]
+        public IHttpActionResult Update([FromBody] Team updatedTeam)
         {
             try
             {
@@ -102,16 +144,15 @@ namespace HackathonTeamBuilder.Controllers
                     return BadRequest(ModelState);
                 }
 
-                Team existingTeam = db.Teams.Find(id);
+                Team existingTeam = db.Teams.Find(updatedTeam.Id);
 
                 if (existingTeam == null)
                 {
                     return NotFound();
                 }
 
-                existingTeam.TeamLeaderId = updatedTeam.TeamLeaderId;
+                // For MVP, Only allowing User to change requirments
                 existingTeam.Requirements = updatedTeam.Requirements;
-                existingTeam.MaxNumOfMembers = updatedTeam.MaxNumOfMembers;
 
                 db.SaveChanges();
 
@@ -123,7 +164,7 @@ namespace HackathonTeamBuilder.Controllers
             }
         }
 
-        // DELETE: /teamdata/delete/{id}
+        // DELETE: api/teamdata/delete/{id}
         [HttpDelete]
         public IHttpActionResult Delete(int id)
         {

@@ -8,11 +8,11 @@ namespace HackathonTeamBuilder.Models
     /// </summary>
     public class ApplicationUserTeam
     {
-        // Using composite Key here to prevent one user joing multiple teams of the same hackathon
+        // Using composite Key here to prevent one user from joing multiple teams of the same hackathon
         [Key, Column(Order = 0), ForeignKey("User")]
         public string UserId { get; set; }
 
-        [Key, Column(Order = 1), ForeignKey("Team")]
+        [Column(Order = 1), ForeignKey("Team")]
         public int TeamId { get; set; }
 
         [Key, Column(Order = 2), ForeignKey("Hackathon")]

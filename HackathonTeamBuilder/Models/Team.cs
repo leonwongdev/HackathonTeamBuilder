@@ -15,7 +15,12 @@ namespace HackathonTeamBuilder.Models
         // Navigation property
         public virtual Hackathon Hackathon { get; set; }
         public string TeamLeaderId { get; set; }
+
+        [StringLength(300, MinimumLength = 10, ErrorMessage = "Requirements must be between 10 and 300 characters.")]
         public string Requirements { get; set; }
+
+
+        [Range(2, int.MaxValue, ErrorMessage = "Value must be 2 or greater")]
         public int MaxNumOfMembers { get; set; }
     }
 }
