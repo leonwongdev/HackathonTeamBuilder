@@ -50,7 +50,7 @@ namespace HackathonTeamBuilder.Models
                 .HasRequired(e => e.Team)
                 .WithMany()
                 .HasForeignKey(e => e.TeamId)
-                .WillCascadeOnDelete(false); // Specify no cascade delete for Team relationship
+                .WillCascadeOnDelete(false);
 
             base.OnModelCreating(modelBuilder);
         }

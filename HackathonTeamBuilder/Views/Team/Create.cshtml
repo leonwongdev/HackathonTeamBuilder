@@ -20,7 +20,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.MaxNumOfMembers, "MaxNumOfMembers")
+        @Html.LabelFor(model => model.MaxNumOfMembers, "Max Number Of Members")
         <input type="number" class="form-control" min="2" value="2" name="MaxNumOfMembers"/>
         @Html.ValidationMessageFor(model => model.MaxNumOfMembers, "", new { @class = "text-danger" })
     </div>
