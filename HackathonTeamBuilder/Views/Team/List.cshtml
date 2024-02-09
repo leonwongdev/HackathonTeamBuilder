@@ -22,13 +22,17 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Team ID: @teamViewModel.Team.Id</h5>
-                        <p class="card-text"><strong>Team Leader:</strong> @if (@teamViewModel.TeamLeader != null)
-                        {@teamViewModel.TeamLeader.FullName}</p>
+                        <p class="card-text"><strong>Team Leader:</strong>
+                        @if (@teamViewModel.TeamLeader != null)
+                        {
+                            @teamViewModel.TeamLeader.Email
+                        }
+                        </p>
                         <p class="card-text"><strong>Requirements:</strong> @teamViewModel.Team.Requirements</p>
                         <p class="card-text"><strong>Max Number of Members:</strong> @teamViewModel.Team.MaxNumOfMembers</p>
-                        <a href="#" class="btn btn-primary">View Members</a>
-                        <a href="/Team/Update/@teamViewModel.Team.Id" class="btn btn-success">Update Team</a>
-                        <a href="/Team/DeleteConfirm/@teamViewModel.Team.Id" class="btn btn-success">Delete Team</a>
+                        <a href="#" class="btn btn-primary m-1">View Members</a>
+                        <a href="/Team/Update/@teamViewModel.Team.Id" class="btn btn-success m-1">Update Team</a>
+                        <a href="/Team/DeleteConfirm/@teamViewModel.Team.Id" class="btn btn-danger m-1">Delete Team</a>
                     </div>
                 </div>
             </div>

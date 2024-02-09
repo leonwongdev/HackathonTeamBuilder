@@ -97,7 +97,7 @@ namespace HackathonTeamBuilder.Controllers
                         HackathonId = team.HackathonId
                     };
 
-                    db.TeamApplicationUsers.Add(userTeam);
+                    db.ApplicationUserTeams.Add(userTeam);
                     db.SaveChanges();
 
                     transaction.Commit();
@@ -168,23 +168,33 @@ namespace HackathonTeamBuilder.Controllers
         [HttpDelete]
         public IHttpActionResult Delete(int id)
         {
-            try
+            using (var transaction = db.Database.BeginTransaction())
             {
-                Team team = db.Teams.Find(id);
-
-                if (team == null)
+                try
                 {
-                    return NotFound();
+                    // Remove all records of ApplicationUserTeam by TeamId to maintain referential integrity
+                    var userTeamRecords = db.ApplicationUserTeams.Where(aut => aut.TeamId == id);
+                    db.ApplicationUserTeams.RemoveRange(userTeamRecords);
+
+                    // Delete the Team by Id
+                    var teamToDelete = db.Teams.Find(id);
+                    if (teamToDelete == null)
+                    {
+                        return NotFound(); // Team not found
+                    }
+
+                    db.Teams.Remove(teamToDelete);
+                    db.SaveChanges();
+
+                    transaction.Commit(); // If everything is successful, commit the transaction
+                    return Ok();
                 }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
 
-                db.Teams.Remove(team);
-                db.SaveChanges();
-
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
+                    return InternalServerError(ex);
+                }
             }
         }
     }

@@ -105,6 +105,47 @@ namespace HackathonTeamBuilder.Controllers
             }
         }
 
-        []
+
+        /// <summary>
+        /// Display delete confirm page
+        /// </summary>
+        /// <param name="id">Id of Team</param>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult DeleteConfirm(int id)
+        {
+            var currentUserId = User.Identity.GetUserId();
+            var response = client.GetAsync($"teamdata/find/{id}").Result;
+            var team = response.Content.ReadAsAsync<Team>().Result;
+            if (team == null)
+            {
+                ViewBag.ErrorMessage = "Unable to display delete page. Reason: Team not found.";
+                return View("Error");
+            }
+            else if (team.TeamLeaderId != currentUserId)
+            {
+                ViewBag.ErrorMessage = "Unable to display delete page. Reason: You are not the team leader, only team leader can delete this team .";
+                return View("Error");
+            }
+            return View(team);
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int id, int hackathonId)
+        {
+
+            string url = "teamdata/delete/" + id;
+            HttpResponseMessage response = client.DeleteAsync(url).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("List", new { Id = hackathonId });
+            }
+            else
+            {
+                ViewBag.ErrorMessage = "Failed to delete the team.";
+                return View("Error");
+            }
+        }
     }
 }

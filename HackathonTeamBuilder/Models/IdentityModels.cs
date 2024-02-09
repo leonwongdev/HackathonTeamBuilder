@@ -37,7 +37,7 @@ namespace HackathonTeamBuilder.Models
         // Add Entity
         public DbSet<Hackathon> Hackathons { get; set; }
         public DbSet<Team> Teams { get; set; }
-        public DbSet<ApplicationUserTeam> TeamApplicationUsers { get; set; }
+        public DbSet<ApplicationUserTeam> ApplicationUserTeams { get; set; }
 
         public static ApplicationDbContext Create()
         {
