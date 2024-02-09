@@ -5,7 +5,9 @@
 2. Open Packag Manager Console, run `Update-Database` to execute the migrations.
 3. Start the application
 
-## Overveiw of the Files Added / Changed
+# Database Design
+
+# Files Added / Changed
 
 - /Controllers
 	- /AccountController.cs
@@ -44,7 +46,7 @@
 
 # MVP Features
 
-## User Table
+## AspNetUsers Table
 ### CRUD - Create
 
 - MVC Endpoint: `GET /Account/Register` for displaying registration form
@@ -74,7 +76,7 @@
 - MVC Endpoint: `POST /Manage/DeleteUser?UserId={UserId}`
 - User will see a delete button in `/Manage/Index`, they can delete their own account, and once deleted successfully, they will be logged out.
 
-## Hackathon Table
+## Hackathons Table
 
 ### Create
 - MVC Endpoint: `GET /hackathon/create` for displaying a create form
@@ -94,4 +96,49 @@
 ### Delete
 - MVC Endpoint: `GET /hackathon/deleteConfirm` for displaying confirmation page before proceed to deletion.
 - MVC Endpoint: `POST /hackathon/delete` for sending request to web api for deletion and then redirect user to the home page.
-- WebAPI Endpoint: `POST /api/hackathon/delete` for deleting a record in DB.
+- WebAPI Endpoint: `DELETE /api/hackathondata/delete` for deleting a record in DB.
+
+## Teams table
+
+### Create
+- MVC Endpoint: `GET /Team/Create` for displaying the team creation form.
+- MVC Endpoint: `POST /Team/Create` for sending form data to web api.
+- WebAPI Endpoint: `POST /api/TeamData/CreateTeamWithLeader` for creating a team. The user creating the team will be the team leader. It will also update the ApplicationUserTeams table (A junction table for M-M relationship between User and Team)
+
+
+### Read
+- MVC Endpoint: `GET /Team/List/{id}` for displaying a list of team by a hackathon id.
+- WebAPI Endpoint: `GET /api/teamdata/ListTeamsByHackathon/{Id}` for getting a list of team by hackathon id from database.
+
+### Update
+- MVC Endpoint: `GET /Team/Update` for displaying a form to update team requirements.
+- MVC Endpoint: `POST /Team/Update` for sending new team data to web api layer.
+- WebAPI Endpoint: `POST /api/Team/Update` for updating data in database layer.
+
+### Delete
+- MVC Endpoint: `GET /Team/DeleteConfirm/{id}` for displaying confirming page before deleting the team.
+- MVC Endpoint: `GET /Team/Delete` for sending new team data to web api layer.
+- WebAPI Endpoint: `DELETE /api/Team/Update` for updating data in database layer. It will first delete every row in ApplicationUserTeams table by team Id, then delete the team, to maintain referential integrity.
+
+## ApplicationUserTeams Table
+Description: This table is a junction table between the ApplicationUser class (AspNetUser table) and Team class (Teams table).
+
+### CREATE (Joining a team)
+- MVC Endpoint: `POST /TeamMember/JoinTeam`, triggers when users clicks the join button, the join button is inside a form with hidden fields that contains the current team id, hackathon id and current user id. These data will be used for creating a relationship in the table. 
+- WebAPI Endpoint `POST /api/TeamMemberData/JoinTeam` insert an record to the ApplicationUserTeams table in the database.
+
+### Read
+- MVC Endpoint: `GET /TeamMember/List/{id}` for displaying all member in a team by team id.
+- WebAPI Endpoint: `GET /api/teammemberdata/list/{id}` for getting a list of ApplicationUserTeam object from the database. It means getting a list of team members by team id.
+
+### Update
+- Update function is not implemented as I do not want the user have the ability to switch teams, they should either join a team or quit a team.
+
+### Delete (Quitting a team)
+- MVC Endpoint: `POST /TeamMember/QuitTeam`, triggers when user clicks the Quit Team button.
+- WebAPI Endpoint: `POST /api/TeamMemberData/QuitTeam` for deleting a record in the table using the hackathon id, team id, and user id in the ApplicationUserTeam object.
+
+
+# Possible Improvements
+- Authorisation feature: Currently any user is able to perform CRUD on Hackathon table, it would be better to add a role-based authorisation feature to only allow admin to manage hackathons.
+- Team member removal: Ability for team lead to remove members. Currently only members can quit or join a team, and team lead does not have ability to remove a team member.

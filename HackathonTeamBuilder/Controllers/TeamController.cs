@@ -32,6 +32,12 @@ namespace HackathonTeamBuilder.Controllers
             return View(teamViewModels);
         }
 
+
+        /// <summary>
+        /// For displaying team creation form.
+        /// </summary>
+        /// <param name="hackathonId">Id of a hackathon</param>
+        /// <returns></returns>
         public ActionResult Create(int hackathonId)
         {
             var response = client.GetAsync($"hackathondata/findbyid/{hackathonId}").Result;
@@ -48,6 +54,11 @@ namespace HackathonTeamBuilder.Controllers
             return View(tempTeam);
         }
 
+        /// <summary>
+        /// For sending form data of new teamto the web api layer.
+        /// </summary>
+        /// <param name="team">New Team data</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Create(Team team)
         {
@@ -67,6 +78,11 @@ namespace HackathonTeamBuilder.Controllers
             }
         }
 
+        /// <summary>
+        /// For displaying the form to update team requirements.
+        /// </summary>
+        /// <param name="id">team id</param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Update(int id)
         {
@@ -86,6 +102,12 @@ namespace HackathonTeamBuilder.Controllers
             return View(team);
         }
 
+
+        /// <summary>
+        /// For sending data to the web api layer for updating team data in database
+        /// </summary>
+        /// <param name="team">New team data</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Update(Team team)
         {
@@ -130,6 +152,12 @@ namespace HackathonTeamBuilder.Controllers
             return View(team);
         }
 
+        /// <summary>
+        /// For sending neccessary data to web api layer to delete a team in database
+        /// </summary>
+        /// <param name="id">team id</param>
+        /// <param name="hackathonId">hackathon id, for redirect to team listing page of a ceratin hackathon.</param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Delete(int id, int hackathonId)
         {
