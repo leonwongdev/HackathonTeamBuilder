@@ -188,6 +188,8 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Controllers\TeamDataController.cs" />
+    <Compile Include="Controllers\TeamMemberController.cs" />
+    <Compile Include="Controllers\TeamMemberDataController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -317,6 +319,7 @@
     <Content Include="Views\Team\Create.cshtml" />
     <Content Include="Views\Team\Update.cshtml" />
     <Content Include="Views\Team\DeleteConfirm.cshtml" />
+    <Content Include="Views\TeamMember\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

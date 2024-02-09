@@ -62,7 +62,7 @@ namespace HackathonTeamBuilder.Controllers
             }
             else
             {
-                ViewBag.ErrorMessage = "Unable to create team, you might have already created a team for this hackathon, please join another one.";
+                ViewBag.ErrorMessage = "Unable to create team, you might have already created a team for this hackathon.";
                 return View("Error");
             }
         }

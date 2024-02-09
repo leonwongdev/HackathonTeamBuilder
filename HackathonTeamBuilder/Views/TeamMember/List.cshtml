@@ -1,0 +1,75 @@
+﻿@model List<HackathonTeamBuilder.Models.ApplicationUserTeam>
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "List";
+    var hackathon = Model[0].Hackathon;
+    var currTeam = Model[0].Team;
+    var currUserId = User.Identity.GetUserId();
+    var isCurrUserInThisTeam = Model.Any(aut => aut.UserId == currUserId);
+    var isCurrUserTeamLead = currTeam.TeamLeaderId == currUserId;
+}
+<h1>@hackathon.Name</h1>
+<h2>Team ID: @currTeam.Id</h2>
+<div><strong>Requirements:</strong><p>@currTeam.Requirements</p></div>
+<div><strong>Max Number Of Members: </strong>@currTeam.MaxNumOfMembers</div>
+<h2>Member List</h2>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Bio</th>
+                <th>Linkedin</th>
+                <th>Github</th>
+                <th>Portfolio</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var userTeam in Model)
+            {
+                <tr>
+                    <td>@userTeam.User.FullName</td>
+                    <td><a href="mailto:@userTeam.User.Email">@userTeam.User.Email</a></td>
+                    <td>@userTeam.User.Bio</td>
+                    <td><a href="@userTeam.User.LinkedinUrl" target="_blank">@userTeam.User.LinkedinUrl</a></td>
+                    <td><a href="@userTeam.User.GithubUrl" target="_blank">@userTeam.User.GithubUrl</a></td>
+                    <td><a href="@userTeam.User.PortfolioUrl" target="_blank">@userTeam.User.PortfolioUrl</a></td>
+                    <td>@userTeam.User.Role</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <form action="/teammember/jointeam" method="post">
+        <input type="hidden" name="UserId" value=@currUserId />
+        <input type="hidden" name="TeamId" value=@currTeam.Id />
+        <input type="hidden" name="HackathonId" value=@hackathon.Id />
+        @if (isCurrUserInThisTeam)
+        {
+            <button type="button" class="btn btn-primary" disabled>Join this team (You are already a team member)</button>
+        }
+        else
+        {
+            <button type="submit" class="btn btn-primary">Join this team</button>
+        }
+    </form>
+    <form action="/teammember/quitteam" method="post">
+        <input type="hidden" name="UserId" value=@currUserId />
+        <input type="hidden" name="TeamId" value=@currTeam.Id />
+        <input type="hidden" name="HackathonId" value=@hackathon.Id />
+        @if (isCurrUserInThisTeam && !isCurrUserTeamLead)
+        {
+            // Show quit team button if the user is in this team AND is not the team lead
+            <button type="submit" class="btn btn-danger">Quit this team</button>
+        }
+        else if (isCurrUserTeamLead)
+        {
+            <button type="button" class="btn btn-danger" disabled>Quit this team (Team lead cannot quit a team)</button>
+        } else
+        {
+            //
+        }
+    </form>
+</div>
