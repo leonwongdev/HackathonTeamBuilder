@@ -5,8 +5,6 @@
 2. Open Packag Manager Console, run `Update-Database` to execute the migrations.
 3. Start the application
 
-# Database Design
-
 # Files Added / Changed
 
 - /Controllers
