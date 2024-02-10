@@ -36,7 +36,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Deadline)
-            <input type="date" id="Deadline" name="Deadline" value="" class="form-control"/>
+            <input type="date" id="Deadline" name="Deadline" value=@DateTime.Now class="form-control"/>
             @Html.ValidationMessageFor(model => model.Deadline)
         </div>
 
