@@ -59,16 +59,21 @@ namespace HackathonTeamBuilder.Controllers
         {
             try
             {
-                List<TeamViewModel> teamsWithUsers = db.Teams
+                List<TeamDTO> teamsWithLeaders = db.Teams
                 .Where(t => t.HackathonId == id)
-                .Select(t => new TeamViewModel
+                .Select(t => new TeamDTO
                 {
-                    Team = t,
-                    TeamLeader = db.Users.FirstOrDefault(u => u.Id == t.TeamLeaderId)
+                    TeamLeader = db.Users.FirstOrDefault(u => u.Id == t.TeamLeaderId),
+                    Team = t
                 })
                 .ToList();
-
-                return Ok(teamsWithUsers);
+                var currentHackathon = db.Hackathons.Find(id);
+                var teamViewModel = new TeamViewModel
+                {
+                    TeamDTO = teamsWithLeaders,
+                    Hackathon = currentHackathon
+                };
+                return Ok(teamViewModel);
             }
             catch (Exception ex)
             {

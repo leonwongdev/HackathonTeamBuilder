@@ -99,7 +99,7 @@
 - WebAPI Endpoint: `DELETE /api/hackathondata/delete` for deleting a record in DB.
 
 ## Teams table
-
+#### Remark: Team Controller is annotated with `[Authorize]` attribute to ensure only logged in user can view teams and join a team.
 ### Create
 - MVC Endpoint: `GET /Team/Create` for displaying the team creation form.
 - MVC Endpoint: `POST /Team/Create` for sending form data to web api.

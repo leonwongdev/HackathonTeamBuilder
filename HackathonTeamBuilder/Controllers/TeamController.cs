@@ -1,6 +1,5 @@
 ﻿using HackathonTeamBuilder.Models;
 using Microsoft.AspNet.Identity;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -27,7 +26,7 @@ namespace HackathonTeamBuilder.Controllers
         public ActionResult List(int Id)
         {
             HttpResponseMessage response = client.GetAsync($"teamdata/ListTeamsByHackathon/{Id}").Result;
-            List<TeamViewModel> teamViewModels = response.Content.ReadAsAsync<List<TeamViewModel>>().Result;
+            var teamViewModels = response.Content.ReadAsAsync<TeamViewModel>().Result;
 
             return View(teamViewModels);
         }
