@@ -321,6 +321,7 @@
     <Content Include="Views\Team\Update.cshtml" />
     <Content Include="Views\Team\DeleteConfirm.cshtml" />
     <Content Include="Views\TeamMember\List.cshtml" />
+    <Content Include="Views\Hackathon\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

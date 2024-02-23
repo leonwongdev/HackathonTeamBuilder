@@ -48,7 +48,8 @@ namespace HackathonTeamBuilder.Controllers
             }
             else
             {
-                return RedirectToAction("Error");
+                // return to error action and give the error message
+                return RedirectToAction("Error", new { message = "Unable to create the hackathon" });
             }
         }
 
@@ -64,7 +65,12 @@ namespace HackathonTeamBuilder.Controllers
             string endpoint = "hackathondata/findbyid/" + id;
             HttpResponseMessage response = client.GetAsync(endpoint).Result;
             Hackathon selectedHackathon = response.Content.ReadAsAsync<Hackathon>().Result;
-
+            // check if the selectedHackathon is null
+            if (selectedHackathon == null)
+            {
+                // return to error action and give the error message
+                return RedirectToAction("Error", new { message = "Unable to find the hackathon for editing" });
+            }
             return View(selectedHackathon);
         }
 
@@ -84,7 +90,8 @@ namespace HackathonTeamBuilder.Controllers
             }
             else
             {
-                return RedirectToAction("Error");
+                // return to error action and give the error message
+                return RedirectToAction("Error", new { message = "Unable to update the hackathon" });
             }
 
         }
@@ -96,6 +103,13 @@ namespace HackathonTeamBuilder.Controllers
             string endpoint = "hackathondata/findbyid/" + id;
             HttpResponseMessage response = client.GetAsync(endpoint).Result;
             Hackathon selectedHackathon = response.Content.ReadAsAsync<Hackathon>().Result;
+            // add null checking for the selectedHackathon
+            if (selectedHackathon == null)
+            {
+                // return to error action and give the error message
+                return RedirectToAction("Error", new { message = "Unable to find the hackathon fo deletion" });
+            }
+
             return View(selectedHackathon);
         }
 
@@ -111,8 +125,16 @@ namespace HackathonTeamBuilder.Controllers
             }
             else
             {
-                return RedirectToAction("Error");
+                // return to error action and give the error message
+                return RedirectToAction("Error", new { message = "Unable to delete the hackathon" });
             }
+        }
+
+        // GET: Hackathon/Error
+        public ActionResult Error(string message)
+        {
+            // using named parameter to pass the message to the view
+            return View("Error", model: message);
         }
     }
 }
