@@ -31,7 +31,7 @@
                         @if (ViewBag.CurrentUser.isAdministrator != null && ViewBag.CurrentUser.isAdministrator == true)
                         {
                             <a href="/Team/Update/@teamDTO.Team.Id" class="btn btn-success m-1">Update Team</a>
-                            <a href="/Team/DeleteConfirm/@teamDTO.Team.Id" class="btn btn-danger m-1">Delete Team</a>
+                            @*<a href="/Team/DeleteConfirm/@teamDTO.Team.Id" class="btn btn-danger m-1">Delete Team</a>*@
                         }
 
                     </div>

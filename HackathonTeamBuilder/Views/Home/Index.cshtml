@@ -14,6 +14,11 @@
         {
             <div class="col-md-4 mb-4">
                 <div class="card">
+                    @* @if (!string.IsNullOrEmpty(hackathon.ImageUrl))
+        {
+            <img src="@hackathon.ImageUrl" class="card-img-top" alt="Hackathon Image">
+        }*@
+                    <img src="https://png.pngtree.com/template/20220419/ourmid/pngtree-hackathon-background-screen-hack-synth-poster-image_1174636.jpg" class="card-img-top" alt="Hackathon Image">
                     <div class="card-body">
                         <h5 class="card-title"> @hackathon.Name (ID: @hackathon.Id)</h5>
                         <p class="card-text"><strong>Location:</strong> @hackathon.Location</p>
