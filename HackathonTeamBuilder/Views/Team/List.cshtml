@@ -27,8 +27,13 @@
                         <p class="card-text"><strong>Requirements:</strong> @teamDTO.Team.Requirements</p>
                         <p class="card-text"><strong>Max Number of Members:</strong> @teamDTO.Team.MaxNumOfMembers</p>
                         <a href="/teammember/list/@teamDTO.Team.Id" class="btn btn-primary m-1">View Members</a>
-                        <a href="/Team/Update/@teamDTO.Team.Id" class="btn btn-success m-1">Update Team</a>
-                        <a href="/Team/DeleteConfirm/@teamDTO.Team.Id" class="btn btn-danger m-1">Delete Team</a>
+
+                        @if (ViewBag.CurrentUser.isAdministrator != null && ViewBag.CurrentUser.isAdministrator == true)
+                        {
+                            <a href="/Team/Update/@teamDTO.Team.Id" class="btn btn-success m-1">Update Team</a>
+                            <a href="/Team/DeleteConfirm/@teamDTO.Team.Id" class="btn btn-danger m-1">Delete Team</a>
+                        }
+
                     </div>
                 </div>
             </div>

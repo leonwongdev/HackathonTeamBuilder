@@ -54,7 +54,7 @@
             }
             if (Model.OtherLogins.Count > 0)
             {
-                using (Html.BeginForm("LinkLogin", "Manage"))
+                using (Html.BeginForm("LinkLogin", "Manage", new { @class = "form-normal"}))
                 {
                     @Html.AntiForgeryToken()
                     <div id="socialLoginList">

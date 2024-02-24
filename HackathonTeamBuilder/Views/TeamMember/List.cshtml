@@ -15,7 +15,7 @@
 <h2>Member List</h2>
 
 <div class="table-responsive">
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped table-white">
         <thead>
             <tr>
                 <th>Full Name</th>
@@ -31,18 +31,18 @@
             @foreach (var userTeam in Model)
             {
                 <tr>
-                    <td>@userTeam.User.FullName</td>
-                    <td><a href="mailto:@userTeam.User.Email">@userTeam.User.Email</a></td>
-                    <td>@userTeam.User.Bio</td>
-                    <td><a href="@userTeam.User.LinkedinUrl" target="_blank">@userTeam.User.LinkedinUrl</a></td>
-                    <td><a href="@userTeam.User.GithubUrl" target="_blank">@userTeam.User.GithubUrl</a></td>
-                    <td><a href="@userTeam.User.PortfolioUrl" target="_blank">@userTeam.User.PortfolioUrl</a></td>
-                    <td>@userTeam.User.Role</td>
+                    <td class="text-white">@userTeam.User.FullName</td>
+                    <td class="text-white"><a href="mailto:@userTeam.User.Email">@userTeam.User.Email</a></td>
+                    <td class="text-white">@userTeam.User.Bio</td>
+                    <td class="text-white"><a href="@userTeam.User.LinkedinUrl" target="_blank">@userTeam.User.LinkedinUrl</a></td>
+                    <td class="text-white"><a href="@userTeam.User.GithubUrl" target="_blank">@userTeam.User.GithubUrl</a></td>
+                    <td class="text-white"><a href="@userTeam.User.PortfolioUrl" target="_blank">@userTeam.User.PortfolioUrl</a></td>
+                    <td class="text-white">@userTeam.User.Role</td>
                 </tr>
             }
         </tbody>
     </table>
-    <form action="/teammember/jointeam" method="post">
+    <form action="/teammember/jointeam" method="post" class="form-normal">
         <input type="hidden" name="UserId" value=@currUserId />
         <input type="hidden" name="TeamId" value=@currTeam.Id />
         <input type="hidden" name="HackathonId" value=@hackathon.Id />
@@ -55,7 +55,7 @@
             <button type="submit" class="btn btn-primary">Join this team</button>
         }
     </form>
-    <form action="/teammember/quitteam" method="post">
+    <form action="/teammember/quitteam" method="post" class="form-normal">
         <input type="hidden" name="UserId" value=@currUserId />
         <input type="hidden" name="TeamId" value=@currTeam.Id />
         <input type="hidden" name="HackathonId" value=@hackathon.Id />

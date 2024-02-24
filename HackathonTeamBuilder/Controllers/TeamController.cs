@@ -1,6 +1,8 @@
 ﻿using HackathonTeamBuilder.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using System.Net.Http;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
@@ -27,6 +29,12 @@ namespace HackathonTeamBuilder.Controllers
         {
             HttpResponseMessage response = client.GetAsync($"teamdata/ListTeamsByHackathon/{Id}").Result;
             var teamViewModels = response.Content.ReadAsAsync<TeamViewModel>().Result;
+
+            /*get current user from owin context*/
+            var user = System.Web.HttpContext.Current.GetOwinContext()
+                .GetUserManager<ApplicationUserManager>()
+                .FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            ViewBag.CurrentUser = user;
 
             return View(teamViewModels);
         }
@@ -138,12 +146,18 @@ namespace HackathonTeamBuilder.Controllers
             var currentUserId = User.Identity.GetUserId();
             var response = client.GetAsync($"teamdata/find/{id}").Result;
             var team = response.Content.ReadAsAsync<Team>().Result;
+
+            /*get current user*/
+            var user = System.Web.HttpContext.Current.GetOwinContext()
+                .GetUserManager<ApplicationUserManager>()
+                .FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+
             if (team == null)
             {
                 ViewBag.ErrorMessage = "Unable to display delete page. Reason: Team not found.";
                 return View("Error");
             }
-            else if (team.TeamLeaderId != currentUserId)
+            else if (team.TeamLeaderId != currentUserId && (user.isAdministrator == null || user.isAdministrator != true))
             {
                 ViewBag.ErrorMessage = "Unable to display delete page. Reason: You are not the team leader, only team leader can delete this team .";
                 return View("Error");

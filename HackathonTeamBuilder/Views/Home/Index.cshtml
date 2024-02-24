@@ -1,24 +1,32 @@
-﻿@model List<HackathonTeamBuilder.Models.Hackathon>
+﻿@model HackathonTeamBuilder.Models.HackathonsViewModel
 @{
     ViewBag.Title = "Home Page";
+    var hackathons = Model.Hackathons;
+    var currentUser = Model.CurrentUser;
 }
 
 <main class="container mt-4">
-    <a href="/hackathon/create" class="btn btn-primary mb-3">Add Hackathon</a>
+    @if (currentUser?.isAdministrator != null && currentUser?.isAdministrator == true)
+    {<a href="/hackathon/create" class="btn btn-primary mb-3">Add Hackathon</a>}
+
     <div class="row">
-        @foreach (var hackathon in Model)
+        @foreach (var hackathon in hackathons)
         {
             <div class="col-md-4 mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">@hackathon.Id. @hackathon.Name</h5>
+                        <h5 class="card-title"> @hackathon.Name (ID: @hackathon.Id)</h5>
                         <p class="card-text"><strong>Location:</strong> @hackathon.Location</p>
                         <p class="card-text"><strong>Description:</strong> @hackathon.Description</p>
                         <p class="card-text"><strong>Offical Website:</strong> <a href="@hackathon.Url" target="_blank">@hackathon.Url</a></p>
                         <p class="card-text"><strong>Deadline:</strong> @hackathon.Deadline.ToString("yyyy-MM-dd HH:mm:ss")</p>
+                        @if (currentUser?.isAdministrator != null && currentUser?.isAdministrator == true)
+                        {
+                            <a href="/hackathon/edit?id=@hackathon.Id" class="btn btn-success mt-1">Edit Detail</a>
+                            <a href="/hackathon/deleteconfirm?id=@hackathon.Id" class="btn btn-danger mt-1">Delete Hackathon</a>
+                        }
                         <a href="/Team/List/@hackathon.Id" class="btn btn-primary mt-1">View Teams</a>
-                        <a href="/hackathon/edit?id=@hackathon.Id" class="btn btn-success mt-1">Edit Detail</a>
-                        <a href="/hackathon/deleteconfirm?id=@hackathon.Id" class="btn btn-danger mt-1">Delete Hackathon</a>
+
                     </div>
                 </div>
             </div>

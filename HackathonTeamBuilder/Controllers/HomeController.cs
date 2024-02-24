@@ -1,7 +1,10 @@
 ﻿using HackathonTeamBuilder.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
@@ -24,10 +27,20 @@ namespace HackathonTeamBuilder.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
+
             string endpoint = "hackathondata/listall";
             HttpResponseMessage response = client.GetAsync(endpoint).Result;
             List<Hackathon> hackathons = response.Content.ReadAsAsync<List<Hackathon>>().Result;
-            return View(hackathons);
+
+            /*Get current user*/
+            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext()
+                .GetUserManager<ApplicationUserManager>()
+                .FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+
+            HackathonsViewModel hackathonsViewModel = new HackathonsViewModel();
+            hackathonsViewModel.Hackathons = hackathons;
+            hackathonsViewModel.CurrentUser = user;
+            return View(hackathonsViewModel);
         }
 
         public ActionResult About()
